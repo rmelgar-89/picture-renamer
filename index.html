@@ -1,1 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Picture Renamer</title>
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <!-- Font Awesome Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center my-4">Picture Renamer</h1>
+
+    <!-- Photo Names Form -->
+    <form id="photo-names-form">
+      <div class="mb-3">
+        <textarea
+          id="photo-names"
+          class="form-control"
+          placeholder="Enter photo names, one per line"
+          rows="5"
+        ></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Next</button>
+    </form>
+
+    <!-- Photo Upload Section -->
+    <div id="photo-upload-section" style="display: none;">
+      <form id="photo-upload-form"></form>
+      <button id="process-button" class="btn btn-success w-100 mt-3">
+        Process
+      </button>
+    </div>
+  </div>
+
+  <!-- Include JSZip and FileSaver.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <!-- Include Bootstrap JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
+  <!-- Include your JavaScript file -->
+  <script src="app.js"></script>
+</body>
+</html>
 
