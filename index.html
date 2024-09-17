@@ -8,38 +8,32 @@
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     rel="stylesheet"
   />
-  <!-- Font Awesome Icons -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
-    rel="stylesheet"
-  />
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="styles.css" />
-  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
   <div class="container">
     <h1 class="text-center my-4">Picture Renamer</h1>
 
-    <!-- Photo Names Form -->
-    <form id="photo-names-form">
-      <div class="mb-3">
-        <textarea
-          id="photo-names"
-          class="form-control"
-          placeholder="Enter photo names, one per line"
-          rows="5"
-        ></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary w-100">Next</button>
-    </form>
+    <!-- Photo Names Input Section -->
+    <div id="photo-names-section">
+      <h2>Enter Photo Names</h2>
+      <form id="photo-names-form">
+        <div class="mb-3">
+          <textarea
+            id="photo-names"
+            class="form-control"
+            placeholder="Enter photo names, one per line"
+            rows="10"
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Next</button>
+      </form>
+    </div>
 
     <!-- Photo Upload Section -->
     <div id="photo-upload-section" style="display: none;">
+      <h2>Upload Photos</h2>
       <form id="photo-upload-form"></form>
       <button id="process-button" class="btn btn-success w-100 mt-3">
         Process
