@@ -77,6 +77,7 @@ document.getElementById('process-button').addEventListener('click', async () => 
   const photoGroups = document.querySelectorAll('.photo-group');
   const zip = new JSZip();
   let missingPhotos = []; // To store names with missing photos
+  let filesAdded = false; // To check if at least one file has been uploaded
 
   for (const group of photoGroups) {
     const name = group.querySelector('label').textContent.trim();
@@ -88,6 +89,7 @@ document.getElementById('process-button').addEventListener('click', async () => 
       const file = input.files[0];
       if (file) {
         filesSelected = true;
+        filesAdded = true; // At least one file has been uploaded
         const data = await file.arrayBuffer();
         const extension = file.name.split('.').pop();
         let fileName = `${name}.${extension}`;
@@ -112,8 +114,8 @@ document.getElementById('process-button').addEventListener('click', async () => 
     alert(`Warning: No files were uploaded for the following names:\n\n${missingPhotos.join('\n')}`);
   }
 
-  if (zip.files.length > 0) {
-    // Only generate the ZIP file if there are files to zip
+  if (filesAdded) {
+    // Only generate the ZIP file if at least one file has been uploaded
     zip.generateAsync({ type: 'blob' }).then((content) => {
       saveAs(content, 'renamed-photos.zip');
     });
