@@ -1,9 +1,14 @@
+// Listen for submission of the photo names form
 document.getElementById('photo-names-form').addEventListener('submit', (e) => {
   e.preventDefault();
-  const names = document.getElementById('photo-names').value.split('\n').filter(Boolean);
+  const names = document
+    .getElementById('photo-names')
+    .value.split('\n')
+    .filter(Boolean);
   generatePhotoUploadForm(names);
 });
 
+// Generate the photo upload form based on the provided photo names
 function generatePhotoUploadForm(names) {
   const form = document.getElementById('photo-upload-form');
   form.innerHTML = ''; // Clear existing content
@@ -21,10 +26,11 @@ function generatePhotoUploadForm(names) {
     `;
     form.appendChild(div);
   });
-  document.getElementById('photo-names-form').style.display = 'none';
+  document.getElementById('photo-names-section').style.display = 'none';
   document.getElementById('photo-upload-section').style.display = 'block';
 }
 
+// Handle adding additional photo inputs for each name
 document.getElementById('photo-upload-form').addEventListener('click', (event) => {
   if (event.target && event.target.classList.contains('add-photo-btn')) {
     const name = event.target.getAttribute('data-name');
@@ -40,6 +46,7 @@ document.getElementById('photo-upload-form').addEventListener('click', (event) =
   }
 });
 
+// Handle image previews when a file is selected
 document.getElementById('photo-upload-form').addEventListener('change', (event) => {
   if (event.target && event.target.matches('input[type="file"]')) {
     handleFileSelect(event);
@@ -65,9 +72,11 @@ function handleFileSelect(event) {
   }
 }
 
+// Handle processing of the uploaded photos
 document.getElementById('process-button').addEventListener('click', async () => {
   const photoGroups = document.querySelectorAll('.photo-group');
   const zip = new JSZip();
+  let missingPhotos = []; // To store names with missing photos
 
   for (const group of photoGroups) {
     const name = group.querySelector('label').textContent.trim();
@@ -93,12 +102,23 @@ document.getElementById('process-button').addEventListener('click', async () => 
     }
 
     if (!filesSelected) {
-      alert(`No files selected for ${name}`);
-      return;
+      // If no files are selected for this photo name, add it to the missingPhotos array
+      missingPhotos.push(name);
     }
   }
 
-  zip.generateAsync({ type: 'blob' }).then((content) => {
-    saveAs(content, 'renamed-photos.zip');
-  });
+  if (missingPhotos.length > 0) {
+    // Display a warning message about the missing photos
+    alert(`Warning: No files were uploaded for the following names:\n\n${missingPhotos.join('\n')}`);
+  }
+
+  if (zip.files.length > 0) {
+    // Only generate the ZIP file if there are files to zip
+    zip.generateAsync({ type: 'blob' }).then((content) => {
+      saveAs(content, 'renamed-photos.zip');
+    });
+  } else {
+    // If no files were uploaded at all, display an error
+    alert('No files were uploaded. Please upload at least one file to generate the ZIP.');
+  }
 });
